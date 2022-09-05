@@ -24,7 +24,6 @@ const Edittext = ({
     notes?.map((elem) => {
       if (elem.count == isEdititem) {
     console.log('hiii',elem,'isEdititem',isEdititem)        
-
         setdateupdated(moment(elem.updateddate==0?elem.time:elem.updateddate).fromNow());   
       }
     })
@@ -76,11 +75,11 @@ const Edittext = ({
   return (
     <div>
       <div className=" w-full mx-auto bg-[#F7F7F7] p-2 pl- border border-stone-200">
-        <div className="flex justify-between w-2/4 mx-auto">
+        <div className="flex flex-col gap-4 sm:flex-row justify-between w-2/4 mx-auto">
           <Link to="/">
             <p className="underline">Home</p>
           </Link>
-          {!update ? <p>edited: {dateupdated}</p> : <></>}
+          {!update ? <p>Edited: {dateupdated}</p> : <></>}
         </div>
       </div>
 
@@ -91,13 +90,13 @@ const Edittext = ({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Type a note title"
-          className="mt-8 w-2/4 h-12 p-2 rounded border border-stone-200"
+          className="mt-8 w-3/4 sm:w-2/4 h-12 p-2 rounded border border-stone-200"
         />
         <textarea
           type="text"
           name="details"
           placeholder="Type the note body"
-          className="mt-8 font-light p-2 w-2/4 border  border-stone-200 min-h-[15rem]"
+          className="mt-8 font-light p-2 w-3/4 sm:w-2/4 border  border-stone-200 min-h-[15rem]"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />

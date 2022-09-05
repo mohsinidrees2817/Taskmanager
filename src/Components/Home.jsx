@@ -16,7 +16,7 @@ const Home = ({notes,OpenDoc,setUpdate,Option,setOption,searchterm,setsearchterm
   return (
     <div className='w-full'>
         <div className=' w-full mx-auto bg-[#F7F7F7] p-2 pl- border border-stone-200'>
-            <div className='flex flex-col gap-2 w-2/4 mx-auto sm:flex-row'>
+            <div className='flex flex-col gap-4 sm:gap-2 w-2/4 mx-auto sm:flex-row'>
             <input type="search" value = {searchterm}  onChange={(e)=>setsearchterm(e.target.value)}  placeholder='Filter notes' className='h-8 rounded px-2 font-light border border-stone-200' />
             <select id="filter-by" value={Option} onChange={(e)=>setOption(e.target.value)}  className='h-8 border'>
             <option value="updateddate">Sort by last edited</option>
