@@ -83,17 +83,6 @@ useEffect(()=>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 const [Option, setOption] = useState("id");  
 
 const sorting = (e)=>{

@@ -101,7 +101,7 @@ const Edittext = ({
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
-      <div className="flex justify-between items-center mx-auto w-2/4 mt-8">
+      <div className="flex gap-4 justify-between items-center mx-auto w-2/4 mt-8">
         <div onClick={() => deletenote(count)}>
           <Link to="/">
             <button className="mx-auto bg-[#888888] border-2 border-[#717171] text-black ">
