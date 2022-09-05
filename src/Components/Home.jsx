@@ -35,6 +35,7 @@ const Home = ({notes,OpenDoc,setUpdate,Option,setOption,searchterm,setsearchterm
         </div>
 
 
+
         <div>
         <div className='mx-auto w-2/4' onClick={(e)=>setUpdate(true)}>
          <Link to="/edittext"> 

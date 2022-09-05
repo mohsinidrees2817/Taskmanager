@@ -7,12 +7,6 @@ import { useEffect, useState } from "react";
 
 
 
-
-
-
-
-
-
 function App() {
   const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState("");
@@ -64,9 +58,13 @@ function App() {
 
   const deletenote = (count) => {
     const updatedItems = notes.filter((element, index) => {
+      localStorage.removeItem("notes", JSON.stringify([...notes,element]));
       return element.count !== count;
+
     });
+    
     setNotes(updatedItems);
+
     setTitle("");
     setDescription("");
   };
