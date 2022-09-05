@@ -77,8 +77,9 @@ function App() {
 const [duplicatenotes, setduplicatenotes] = useState(notes);
 useEffect(()=>{
     const newuserlist = notes.filter((itemss)=>{
-       return itemss.title.includes(searchterm.toLowerCase());})
+       return itemss.title.toLowerCase().startsWith(searchterm.toLowerCase());;})
        setduplicatenotes(newuserlist)
+       
 },[searchterm])
 
 
