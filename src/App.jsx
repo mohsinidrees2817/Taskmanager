@@ -2,8 +2,8 @@ import "./App.css";
 import Header from "./Components/Header";
 import Home from "./Components/Home";
 import Edittext from "./Components/Edittext.jsx";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes,useLocation,useParams } from "react-router-dom";
+import { useEffect, useState, } from "react";
 
 
 
@@ -16,6 +16,7 @@ function App() {
   const [isEdititem, setisEdititem] = useState(null);
   const [searchterm , setsearchterm] = useState('');
 
+  
 
 
   const getDataFromL = () => {
@@ -26,45 +27,49 @@ function App() {
       return [];
     }
   };
-  
   useEffect(() => {
     setNotes(getDataFromL())
   }, [])
-
-
-
-
+ 
   const OpenDoc = (count) => {
     let Index
     let newedititem = notes.find((elem,i) => {
       if(elem.count === count){
-
         Index = i
       }
       return elem.count === count;
     });
+    console.log(count,'count')
+    // const notesInstance = [...notes]
     setupdate(false);
     setTitle(newedititem.title);
     setDescription(newedititem.description);
     setCount(newedititem.count);
+    // console.log(newedititem);
+    //    const notesInstance = [...notes]
     // newedititem.updateddate = new Date();
-    // const notesInstance = [...notes]
     // notesInstance[Index] = newedititem
     // setNotes(notesInstance)
-    
     setisEdititem(count);
   };
 
 
+  // useEffect(()=>{
+  //    sorting(Option)
+  //  },[notes])
+
+
+
+
+  
+
   const deletenote = (count) => {
     const updatedItems = notes.filter((element, index) => {
-      localStorage.removeItem("notes", JSON.stringify([...notes,element]));
+      localStorage.removeItem([notes.element]);
       return element.count !== count;
-
     });
-    
     setNotes(updatedItems);
-
+    localStorage.setItem("notes", JSON.stringify([...updatedItems]));
     setTitle("");
     setDescription("");
   };
@@ -75,7 +80,7 @@ function App() {
 const [duplicatenotes, setduplicatenotes] = useState(notes);
 useEffect(()=>{
     const newuserlist = notes.filter((itemss)=>{
-       return itemss.title.toLowerCase().startsWith(searchterm.toLowerCase());;})
+       return itemss.title.toLowerCase().includes(searchterm.toLowerCase());;})
        setduplicatenotes(newuserlist)
        
 },[searchterm])
@@ -107,7 +112,6 @@ const sorting = (e)=>{
       sortcopy.sort((a, b) => {
         return ((b.time > a.time)?1:-1)
       });
-      
       setNotes(sortcopy);
       console.log('sorted by created',sortcopy);
     }
@@ -137,9 +141,10 @@ const sorting = (e)=>{
             }
           />
           <Route
-            path="edittext"
+            path="/edittext/:id"
             element={
               <Edittext
+              OpenDoc={OpenDoc}
                 notes={notes}
                 setNotes={setNotes}
                 title={title}
@@ -154,6 +159,10 @@ const sorting = (e)=>{
                 isEdititem={isEdititem}
                 setisEdititem={setisEdititem}
                 searchterm={searchterm}
+                sorting = {sorting}
+                option = {Option}
+                
+                
               />
             }
           />

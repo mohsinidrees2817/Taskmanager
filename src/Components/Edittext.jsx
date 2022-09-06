@@ -1,7 +1,8 @@
 import moment from "moment/moment";
 import React, { useState, useEffect } from "react";
+// import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-import { Link } from "react-router-dom";
 
 
 
@@ -18,18 +19,27 @@ const Edittext = ({
   update,
   isEdititem,
   setisEdititem,
+  sorting,
+  Option,
+  OpenDoc
 }) => {
+
+  let { id } = useParams();
+  console.log('aa',id);
   const [dateupdated, setdateupdated] = useState('');
+
   useEffect(()=>{
-    notes?.map((elem) => {
-      if (elem.count == isEdititem) {
-    console.log('hiii',elem,'isEdititem',isEdititem)        
+   const note = id && notes?.find((elem) => {
+      if (elem.count == id) {
+        // console.log('hiii',elem,'isEdititem',isEdititem)        
         setdateupdated(moment(elem.updateddate==0?elem.time:elem.updateddate).fromNow());   
       }
+      return elem.count == id
     })
-  },[notes])
+    note && OpenDoc(note.count,note.title,note.description,note.time,note.updateddate)
+  },[notes,id])
+
   function generateId() {
-       
     return Math.random().toString(36).substring(2) +
       (new Date()).getTime().toString(36);
   }
@@ -37,23 +47,25 @@ const Edittext = ({
   function Addnotes() {
     if (!title) {
     } else if (title && !update) {
-      setNotes(
-        notes.map((elem) => {
+      let editednote = notes.map((elem) => {
           if (elem.count == isEdititem) {
             console.log(elem.updateddate,'elem.updateddate')
-            setdateupdated(elem.updateddate);           
+            setdateupdated(elem.updateddate);                  
             return { ...elem, title, description, updateddate: new Date() };
           }
           return elem;
         }
         )
-      );
+      editednote.sort((a, b) => {
+        return ((b.updateddate > a.updateddate)?1:-1)
+      });
+      setNotes(editednote);
+      sorting(Option);   
+      localStorage.setItem("notes", JSON.stringify([...editednote]));
       setTitle("");
       setDescription("");
       setisEdititem(null);
     } else {
-      // setCount(count + 1);
-      // settime(moment().startOf("minute").fromNow());
       let note = {
         title,
         description,
@@ -61,13 +73,16 @@ const Edittext = ({
         time: new Date(),
         updateddate: 0, 
       };
-      // console.log(note.time, note.title, note.description, note.count, note.updateddate);
       setNotes([...notes, note]);
       localStorage.setItem("notes", JSON.stringify([...notes, note]));
       setTitle("");
       setDescription("");
-      // settime("");
     }
+  }
+
+  function changestates(e){
+    setTitle('');
+    setDescription('');
   }
 
 
@@ -76,9 +91,11 @@ const Edittext = ({
     <div>
       <div className=" w-full mx-auto bg-[#F7F7F7] p-2 pl- border border-stone-200">
         <div className="flex flex-col gap-4 sm:flex-row justify-between w-2/4 mx-auto">
+          <div onClick={(e)=>changestates(e)}>
           <Link to="/">
             <p className="underline">Home</p>
           </Link>
+          </div>
           {!update ? <p>Edited: {dateupdated}</p> : <></>}
         </div>
       </div>

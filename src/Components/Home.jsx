@@ -38,7 +38,7 @@ const Home = ({notes,OpenDoc,setUpdate,Option,setOption,searchterm,setsearchterm
 
         <div>
         <div className='mx-auto w-2/4' onClick={(e)=>setUpdate(true)}>
-         <Link to="/edittext"> 
+         <Link to="/edittext/:id"> 
         <button className='mx-auto mt-4 bg-[#43799c] w-24 h-10 text-white border-b-2 border-[#396684]' > Create Note</button>
         </Link>  
         </div>
