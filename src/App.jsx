@@ -137,6 +137,8 @@ const sorting = (e)=>{
                 setsearchterm={setsearchterm}
                 duplicatenotes = {duplicatenotes}
                 setOption = {sorting}
+                setTitle={setTitle}
+                setDescription={setDescription}
               />
             }
           />

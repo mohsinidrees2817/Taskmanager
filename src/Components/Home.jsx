@@ -9,8 +9,9 @@ import { Docs } from './Docs';
 
 
 
-const Home = ({notes,OpenDoc,setUpdate,Option,setOption,searchterm,setsearchterm}) => {
-
+const Home = ({notes,OpenDoc,setUpdate,Option,setOption,searchterm,setsearchterm,setTitle,setDescription}) => {
+setTitle('');
+setDescription('');
 
 
   return (
